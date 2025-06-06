@@ -3,7 +3,7 @@ import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import InputError from '@/components/input-error';
-import TextLink from '@/components/text-link';
+// import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -54,7 +54,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             disabled={processing}
                             placeholder="Kendall Roy"
                         />
-                        <InputError message={errors.username} />
+                        <InputError message={errors.username} className='mt-2'/>
                     </div>
 
                     <div className="grid gap-2">
@@ -71,17 +71,18 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             onChange={(e) => setData('password', e.target.value)}
                             placeholder="W4y5T@r_r0Yc()"
                         />
-                        <InputError message={errors.password} />
+                        <InputError message={errors.password} className='mt-2'/>
                     </div>
                 </div>
 
-                <div className="text-center text-sm text-muted-foreground">
+                {/* TO CONSIDER */}
+                {/* <div className="text-center text-sm text-muted-foreground">
                     {canResetPassword && (
                         <TextLink href={route('password.request')} className="ml-auto text-sm font-serif" tabIndex={5}>
                             Forgot Password?
                         </TextLink>
                     )}
-                </div>
+                </div> */}
 
                 <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}

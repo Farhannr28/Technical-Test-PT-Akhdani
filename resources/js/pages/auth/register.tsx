@@ -63,7 +63,7 @@ export default function Register() {
                             disabled={processing}
                             placeholder="W4y5T@r_r0Yc()"
                         />
-                        <InputError message={errors.password} />
+                        <InputError message={errors.password} className='mt-2'/>
                     </div>
 
                     <div className="grid gap-2">
@@ -79,7 +79,7 @@ export default function Register() {
                             disabled={processing}
                             placeholder="W4y5T@r_r0Yc()"
                         />
-                        <InputError message={errors.password_confirmation} />
+                        <InputError message={errors.password_confirmation} className='mt-2'/>
                     </div>
 
                     <Button type="submit" className="mt-2 w-full" tabIndex={5} disabled={processing}>
