@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\SDM\MasterDataController;
+use App\Http\Controllers\MasterDataController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Pegawai\PegawaiController;
@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth', 'role:SDM']], function () {
     Route::get('/sdm/pengajuan', [SDMController::class, 'pengajuan'])->name('sdm.pengajuan');
 });
 
-Route::group(['middleware' => ['auth', 'role:SDM', 'role:ADMIN']], function () {
+Route::group(['middleware' => ['auth', 'role:SDM,ADMIN']], function () {
     Route::get('master-data-kota', [MasterDataController::class, 'create'])->name('master.data.kota');
 });
 

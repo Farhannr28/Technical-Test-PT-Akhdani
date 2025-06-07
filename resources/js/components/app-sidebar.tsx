@@ -23,7 +23,7 @@ const ALL_NAV_ITEMS: NavItem[] = [
     },
     {
         title: 'Master Data Kota',
-        href: '/kota-master',
+        href: '/master-data-kota',
         icon: LayoutGrid,
         role: [RoleEnum.SDM, RoleEnum.ADMIN],
     },

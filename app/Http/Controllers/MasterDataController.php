@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\SDM;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\PerjalananDinas;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -16,25 +17,22 @@ class MasterDataController extends Controller
      */
     public function create(): Response
     {
-        $perdin = PerjalananDinas::with([
-            'user:id,username',
-            'departureCity:id,name,province,island,is_abroad',
-            'arrivalCity:id,name,province,island,is_abroad'
-        ])
+        $cities = City::select('id', 'name', 'province', 'island', 'is_abroad', 'latitude', 'longitude')
         ->get()
-        ->map(function ($item) {
+        ->map(function ($city) {
             return [
-                'id' => $item->id,
-                'from' => $item->departureCity->name,
-                'to' => $item->arrivalCity->name,
-                'date_from' => Carbon::parse($item->depature_date)->format('d-M-Y'),
-                'date_until' => Carbon::parse($item->arrival_date)->format('d-M-Y'),
-                'duration' => $item->duration,
-                'description' => $item->description,
-                'status' => $item->status,
+                'id' => $city->id,
+                'name' => $city->name,
+                'province' => $city->province,
+                'island' => $city->island,
+                'is_foreign' => $city->is_abroad,
+                'latitude' => (float) $city->latitude,
+                'longitude' => (float) $city->longitude,
             ];
         });
 
-        return Inertia::render('master-data-kota', ['data' => $perdin]);
+        return Inertia::render('master-data-kota', [
+            'data' => $cities,
+        ]);
     }
 }

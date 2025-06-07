@@ -2,6 +2,7 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
+import { Pencil, Trash2 } from 'lucide-react';
 
 type City = {
   id: number;
@@ -20,11 +21,14 @@ type MasterKotaProps = {
 const breadcrumbs: BreadcrumbItem[] = [
   {
     title: 'Master Kota',
-    href: '/admin/master-kota',
+    href: 'master-data-kota',
   },
 ];
 
 export default function MasterDataKota({ data }: MasterKotaProps) {
+
+    console.log(data)
+
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Master Kota" />
@@ -66,14 +70,14 @@ export default function MasterDataKota({ data }: MasterKotaProps) {
                       <td className="px-6 py-4">{city.province}</td>
                       <td className="px-6 py-4">{city.island}</td>
                       <td className="px-6 py-4">{city.is_foreign ? 'Ya' : 'Tidak'}</td>
-                      <td className="px-6 py-4">{city.latitude.toFixed(6)}</td>
-                      <td className="px-6 py-4">{city.longitude.toFixed(6)}</td>
-                      <td className="px-6 py-4 space-x-2">
-                        <button className="text-orange-500 hover:text-orange-700">
-                          ✏️
+                      <td className="px-6 py-4">{Number(city.latitude).toFixed(7)}</td>
+                      <td className="px-6 py-4">{Number(city.longitude).toFixed(7)}</td>
+                      <td className="px-6 py-4 space-x-4">
+                        <button className="text-primary hover:text-orange-700">
+                            <Pencil className="w-4 h-4" />
                         </button>
                         <button className="text-red-500 hover:text-red-700">
-                          🗑️
+                            <Trash2 className="w-4 h-4" />
                         </button>
                       </td>
                     </tr>
