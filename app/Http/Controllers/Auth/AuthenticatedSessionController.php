@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
         $request->authenticate();
 
@@ -37,11 +37,12 @@ class AuthenticatedSessionController extends Controller
         $user = $request->user();
         
         // Redirect based on role
-        return match($user->role) {
-            'ADMIN' => redirect()->intended(route('admin.dashboard', absolute: false)),
-            'SDM' => redirect()->intended(route('sdm.dashboard', absolute: false)),
-            default => redirect()->intended(route('pegawai.dashboard', absolute: false)),
-        };
+        return redirect()->intended(route(match ($user->role) {
+            'ADMIN' => 'admin.dashboard',
+            'SDM' => 'sdm.dashboard',
+            'PEGAWAI' => 'pegawai.dashboard',
+            default => abort(403),
+        }));
     }
 
     /**
@@ -54,6 +55,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('auth-index');
     }
 }

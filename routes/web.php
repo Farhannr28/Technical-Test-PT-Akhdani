@@ -14,18 +14,13 @@ Route::get('/auth/index', function () {
     return Inertia::render('auth/index');
 })->name('auth-index');
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::get('dashboard', function () {
-//         return Inertia::render('dashboard');
-//     })->name('dashboard');
+
+// Route::group(['middleware' => ['auth', 'role:ADMIN']], function () {
+//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 // });
 
-Route::group(['middleware' => ['auth', 'role:ADMIN']], function () {
-    Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
-});
-
 Route::group(['middleware' => ['auth', 'role:PEGAWAI']], function () {
-    Route::get('/dashboard', [PegawaiController::class, 'dashboard'])->name('pegawai.dashboard');
+    Route::get('/pegawai/dashboard', [PegawaiController::class, 'dashboard'])->name('pegawai.dashboard');
 });
 
 Route::group(['middleware' => ['auth', 'role:PEGAWAI']], function () {
@@ -33,7 +28,11 @@ Route::group(['middleware' => ['auth', 'role:PEGAWAI']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:SDM']], function () {
-    Route::get('/sdm/dashboard', 'SDMController@dashboard')->name('sdm.dashboard');
+    Route::get('/sdm/dashboard', [SDMController::class, 'dashboard'])->name('sdm.dashboard');
+});
+
+Route::group(['middleware' => ['auth', 'role:SDM']], function () {
+    Route::get('/sdm/pengajuan', [SDMController::class, 'pengajuan'])->name('sdm.dashboard');
 });
 
 require __DIR__.'/settings.php';

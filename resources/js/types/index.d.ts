@@ -1,5 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
+import { RoleEnum } from './role';
 
 export interface Auth {
     user: User;
@@ -20,6 +21,7 @@ export interface NavItem {
     href: string;
     icon?: LucideIcon | null;
     isActive?: boolean;
+    role: RoleEnum | RoleEnum[];
 }
 
 export interface SharedData {
@@ -33,9 +35,9 @@ export interface SharedData {
 
 export interface User {
     id: number;
-    username: string;
     avatar?: string;
     created_at: string;
     updated_at: string;
+    role: RoleEnum;
     [key: string]: unknown;
 }
