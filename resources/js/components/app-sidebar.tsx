@@ -9,8 +9,8 @@ import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
+        title: 'Perdinku',
+        href: '/pegawai/perdinku',
         icon: LayoutGrid,
     },
 ];

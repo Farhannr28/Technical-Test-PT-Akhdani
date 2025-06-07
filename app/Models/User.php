@@ -12,6 +12,10 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    const ROLE_ADMIN = 'ADMIN';
+    const ROLE_SDM = 'SDM';
+    const ROLE_PEGAWAI = 'PEGAWAI';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'password',
+        'role',
     ];
 
     /**
@@ -44,8 +49,23 @@ class User extends Authenticatable
         ];
     }
 
-    public function getRoleAttribute()
+    // public function getRoleAttribute()
+    // {
+    //     return $this->attributes['role'];
+    // }
+
+    public function isAdmin(): bool
     {
-        return $this->attributes['role'];
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isHR(): bool
+    {
+        return $this->role === self::ROLE_SDM;
+    }
+
+    public function isEmployee(): bool
+    {
+        return $this->role === self::ROLE_PEGAWAI;
     }
 }

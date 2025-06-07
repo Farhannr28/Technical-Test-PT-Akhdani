@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Pegawai\PegawaiController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\SDM\SDMController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -17,16 +20,20 @@ Route::get('/auth/index', function () {
 //     })->name('dashboard');
 // });
 
-Route::group(['middleware' => ['auth', 'role:admin']], function () {
-    Route::get('/admin/dashboard', 'AdminController@dashboard');
+Route::group(['middleware' => ['auth', 'role:ADMIN']], function () {
+    Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 });
 
-Route::group(['middleware' => ['auth', 'role:manager']], function () {
-    Route::get('/pegawai/perdin-dashboard', 'PegawaiController@dashboard');
+Route::group(['middleware' => ['auth', 'role:PEGAWAI']], function () {
+    Route::get('/dashboard', [PegawaiController::class, 'dashboard'])->name('pegawai.dashboard');
 });
 
-Route::group(['middleware' => ['auth', 'role:user']], function () {
-    Route::get('/sdm/perdin-dashboard', 'SDMController@dashboard');
+Route::group(['middleware' => ['auth', 'role:PEGAWAI']], function () {
+    Route::get('/pegawai/perdinku', [PegawaiController::class, 'perdinku'])->name('pegawai.perdinku');
+});
+
+Route::group(['middleware' => ['auth', 'role:SDM']], function () {
+    Route::get('/sdm/dashboard', 'SDMController@dashboard')->name('sdm.dashboard');
 });
 
 require __DIR__.'/settings.php';
